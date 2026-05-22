@@ -66,39 +66,6 @@
             margin-bottom: 15px;
         }
 
-        .data-sources {
-            background: #fafaf8;
-            border-left: 4px solid #185FA5;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 6px;
-        }
-
-        .data-sources h3 {
-            color: #185FA5;
-            font-size: 1.1em;
-            margin-bottom: 12px;
-        }
-
-        .data-sources ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .data-sources li {
-            padding: 8px 0;
-            color: #333;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .data-sources li:before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #185FA5;
-        }
-
         .coach-section {
             background: white;
             border: 0.5px solid #e0ddd6;
@@ -154,36 +121,8 @@
             transform: scale(0.98);
         }
 
-        .example-questions {
-            margin-top: 20px;
-        }
-
-        .example-questions p {
-            color: #666;
-            font-size: 0.95em;
-            margin-bottom: 10px;
-        }
-
-        .example-btn {
-            display: inline-block;
-            padding: 10px 16px;
-            margin: 5px 5px 5px 0;
-            background: white;
-            border: 1px solid #e0ddd6;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.2s;
-        }
-
-        .example-btn:hover {
-            background: #fafaf8;
-            border-color: #185FA5;
-            color: #185FA5;
-        }
-
         .response-box {
-            background: #fafaf8;
+            background: white;
             border: 0.5px solid #e0ddd6;
             border-radius: 14px;
             padding: 25px;
@@ -216,17 +155,26 @@
             margin-bottom: 15px;
         }
 
+        .ai-synthesis {
+            background: #f0f7ff;
+            border-left: 4px solid #185FA5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+            line-height: 1.8;
+        }
+
+        .ai-synthesis strong {
+            color: #185FA5;
+        }
+
         .citation {
             background: white;
-            border-left: 4px solid #185FA5;
+            border-left: 4px solid #e0ddd6;
             padding: 15px;
             margin: 15px 0;
             border-radius: 6px;
             border: 1px solid #e0ddd6;
-            line-height: 1.8;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            white-space: normal;
         }
 
         .citation-source {
@@ -234,61 +182,6 @@
             color: #999;
             margin-top: 10px;
             font-weight: 500;
-        }
-
-        .citation-text {
-            color: #333;
-            font-size: 0.95em;
-            margin-bottom: 12px;
-        }
-
-        .api-status {
-            font-size: 0.85em;
-            color: #999;
-            margin-top: 10px;
-            padding: 8px;
-            background: #fafaf8;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .api-status.connected {
-            color: #185FA5;
-            background: #f0f7ff;
-        }
-
-        .quote {
-            background: white;
-            border-left: 4px solid #185FA5;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 6px;
-            font-style: italic;
-            color: #333;
-        }
-
-        .quote-source {
-            font-size: 0.9em;
-            color: #999;
-            margin-top: 8px;
-            font-style: normal;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 20px;
-            color: #666;
-            font-size: 0.9em;
-            margin-top: 40px;
-        }
-
-        footer a {
-            color: #185FA5;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
         }
 
         .loading {
@@ -319,6 +212,34 @@
             30% { opacity: 1; }
         }
 
+        .api-status {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 10px;
+            padding: 8px;
+            background: #fafaf8;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .api-status.connected {
+            color: #185FA5;
+            background: #f0f7ff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #185FA5;
+            text-decoration: none;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8em;
@@ -343,47 +264,27 @@
         <header>
             <h1>🤖 Berkshire Buddy</h1>
             <div class="subtitle">Dein Investment-Coach</div>
-            <div class="tagline">Powered by Warren Buffett & Charlie Munger</div>
+            <div class="tagline">Powered by Warren Buffett & Charlie Munger (+ Mistral AI)</div>
         </header>
 
         <div class="intro-box">
-            <h2>Was ist Berkshire Buddy?</h2>
+            <h2>Willkommen bei Berkshire Buddy!</h2>
             <p>
-                Berkshire Buddy ist dein persönlicher Investment-Coach, der auf echten Erkenntnissen von 
-                <strong>Warren Buffett</strong> und <strong>Charlie Munger</strong> basiert. 
-                Stelle eine Frage zu Investitionen, Vermögensaufbau oder Finanzstrategie – 
-                und Buddy antwortet mit direkten Zitaten und Lektionen aus Jahrzehnten bewährter Wisdom.
+                Stelle eine Frage zu Investitionen, und Buddy antwortet intelligent mit Erkenntnissen aus 
+                <strong>48 Jahren Berkshire Hathaway Shareholder Letters</strong> und 
+                <strong>Shareholder Meetings</strong>.
             </p>
-
-            <div class="data-sources">
-                <h3>📚 Die Datenquellen</h3>
-                <ul>
-                    <li><strong>Berkshire Hathaway Shareholder Letters</strong> (1977–2024, 48 Jahre)</li>
-                    <li><strong>Berkshire Hathaway Shareholder Meetings</strong> (Q&A, wörtliche Zitate)</li>
-                    <li><strong>Klassische Investment-Konzepte</strong> von Graham, Dodd und anderen</li>
-                </ul>
-            </div>
-
-            <p style="margin-top: 20px;">
-                <strong>Für Investment-Anfänger:</strong> Keine Sorge – Berkshire Buddy erklärt auch komplexe Konzepte 
-                einfach und verständlich. Du brauchst keine Finanzausbildung, um vom Buddy zu profitieren.
+            <p style="margin-top: 15px;">
+                Dank <strong>Mistral AI</strong> bekommst du nicht nur Zitate, sondern intelligente, 
+                zusammengefasste Antworten basierend auf echten Quellen.
             </p>
         </div>
 
         <div class="coach-section">
             <h2>Frag den Coach</h2>
             <div class="input-group">
-                <input type="text" id="questionInput" placeholder="Deine Investmentfrage (z.B. 'Wie finde ich gute Aktien?')..." />
+                <input type="text" id="questionInput" placeholder="Deine Investmentfrage (auf Englisch)..." />
                 <button onclick="askCoach()">Fragen</button>
-            </div>
-
-            <div class="example-questions">
-                <p><strong>Beispielfragen:</strong></p>
-                <button class="example-btn" onclick="setQuestion('Wie erkenne ich eine gute Aktie?')">Wie erkenne ich eine gute Aktie?</button>
-                <button class="example-btn" onclick="setQuestion('Was ist Value Investing?')">Was ist Value Investing?</button>
-                <button class="example-btn" onclick="setQuestion('Wie vermeidet man Fehler beim Investieren?')">Wie vermeidet man Fehler?</button>
-                <button class="example-btn" onclick="setQuestion('Wie wichtig ist Geduld beim Investieren?')">Geduld beim Investieren?</button>
-                <button class="example-btn" onclick="setQuestion('Was würde Buffett zum Krypto sagen?')">Buffett zum Krypto?</button>
             </div>
 
             <div class="loading" id="loading">
@@ -405,135 +306,86 @@
     <script>
         // API Configuration
         const API_BASE = 'https://berkshire-buddy-backend.vercel.app';
+        const OLLAMA_BASE = 'http://localhost:11434';
+        const OLLAMA_MODEL = 'mistral:latest';
         let apiAvailable = false;
+        let ollamaAvailable = false;
 
-        // Check if API is available on page load
+        // Check APIs on page load
         async function checkAPI() {
             try {
                 const response = await fetch(API_BASE + '/health', { mode: 'cors' });
                 if (response.ok) {
                     apiAvailable = true;
-                    console.log('✓ API connected');
+                    console.log('✓ Backend API connected');
                 }
             } catch (e) {
-                apiAvailable = false;
-                console.log('API offline - using demo mode');
+                console.log('✗ Backend offline');
+            }
+        }
+
+        async function checkOllama() {
+            try {
+                const response = await fetch(OLLAMA_BASE + '/api/tags', { 
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                if (response.ok) {
+                    ollamaAvailable = true;
+                    console.log('✓ Ollama connected');
+                }
+            } catch (e) {
+                console.log('✗ Ollama offline (local synthesis unavailable)');
             }
         }
 
         checkAPI();
+        checkOllama();
 
-        // Demo responses (fallback)
-        const responses = {
-            'gute aktie': {
-                header: 'Wie du gute Aktien erkennst',
-                content: `
-                    <p>Warren Buffett hat eine klare Philosophie für die Auswahl von Aktien:</p>
-                    <div class="quote">
-                        "Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1."
-                        <div class="quote-source">— Warren Buffett</div>
-                    </div>
-                    <p><strong>Die 4 Key-Kriterien:</strong></p>
-                    <ul style="margin-left: 20px; margin-top: 10px;">
-                        <li><strong>Verständlichkeit:</strong> Du musst das Geschäftsmodell verstehen</li>
-                        <li><strong>Wettbewerbsvorteil:</strong> Das Unternehmen hat einen "Moat" (nachhaltigen Vorteil)</li>
-                        <li><strong>Management:</strong> Ehrliche, fähige Führung ist entscheidend</li>
-                        <li><strong>Bewertung:</strong> Du kaufst nur mit großem Sicherheitsabstand (Margin of Safety)</li>
-                    </ul>
-                    <p style="margin-top: 15px;">Das ist keine schnelle Strategie – es geht um langfristige, bewährte Unternehmen, nicht um Trends.</p>
-                `
-            },
-            'value investing': {
-                header: 'Value Investing erklärt',
-                content: `
-                    <p>Value Investing ist das Herzstück von Buffetts Strategie:</p>
-                    <div class="quote">
-                        "Price is what you pay; value is what you get."
-                        <div class="quote-source">— Warren Buffett</div>
-                    </div>
-                    <p><strong>Das Kernprinzip:</strong> Es gibt einen großen Unterschied zwischen dem Preis, den du zahlst, und dem wahren Wert eines Unternehmens.</p>
-                    <p><strong>Dein Ziel:</strong> Kaufe Unternehmen, die unter ihrem inneren Wert gehandelt werden – mit großem Sicherheitsabstand.</p>
-                    <p style="margin-top: 15px;">Das erfordert Geduld, Recherche und Disziplin – aber genau deshalb funktioniert es: Weil wenige bereit sind, diese Arbeit zu leisten.</p>
-                `
-            },
-            'fehler': {
-                header: 'Häufige Investment-Fehler (und wie du sie vermeidest)',
-                content: `
-                    <p>Charlie Munger sagt oft, dass es leichter ist, Fehler zu vermeiden als Erfolg vorherzusagen:</p>
-                    <div class="quote">
-                        "It is remarkable how much long-term advantage people can get from being faithful to boring old principles."
-                        <div class="quote-source">— Charlie Munger</div>
-                    </div>
-                    <p><strong>Top 5 Fehler:</strong></p>
-                    <ul style="margin-left: 20px; margin-top: 10px;">
-                        <li>Zu viel handeln (Trading statt Investing)</li>
-                        <li>Emotionale Entscheidungen treffen (Angst & Gier)</li>
-                        <li>Zu viel Schulden nutzen (Leverage ist gefährlich)</li>
-                        <li>Dinge kaufen, die du nicht verstehst</li>
-                        <li>Zu teure Gebühren zahlen (Kosten fressen Returns auf)</li>
-                    </ul>
-                    <p style="margin-top: 15px;">Die gute Nachricht: Diese Fehler kannst du alle vermeiden, wenn du bewusst handelst.</p>
-                `
-            },
-            'geduld': {
-                header: 'Die Macht der Geduld',
-                content: `
-                    <p>Buffett ist berühmt dafür, lange abzuwarten – und genau das ist eines seiner größten Erfolgsgeheimnis:</p>
-                    <div class="quote">
-                        "No matter how great the talent or effort, some things just take time. You can't produce a baby in one month by impregnating nine women."
-                        <div class="quote-source">— Warren Buffett</div>
-                    </div>
-                    <p><strong>Warum Geduld gewinnt:</strong></p>
-                    <ul style="margin-left: 20px; margin-top: 10px;">
-                        <li>Zinseszinseffekt braucht Zeit</li>
-                        <li>Gute Unternehmen wachsen über Jahrzehnte</li>
-                        <li>Du kannst Paniken ausnutzen, um günstig zu kaufen</li>
-                        <li>Weniger Steuern durch langfristige Haltung</li>
-                    </ul>
-                    <p style="margin-top: 15px;">Buffett hält manche Aktien seit 50+ Jahren. Das ist kein Zufall – das ist die Strategie.</p>
-                `
-            },
-            'krypto': {
-                header: 'Buffetts Sicht auf Kryptowährungen',
-                content: `
-                    <p>Buffett und Munger sind bekannt als Krypto-Skeptiker. Hier ihre Perspektive:</p>
-                    <div class="quote">
-                        "Whether it is tulips or any other investment, if you're paying a price for something that doesn't generate a return, you're betting on whether it will be higher in the future."
-                        <div class="quote-source">— Warren Buffett (sinngemäß zu Spekulationen)</div>
-                    </div>
-                    <p><strong>Das Kernproblem nach Buffett:</strong> Bitcoin und viele andere Kryptowährungen generieren keinen Cashflow – sie sind reine Spekulationen auf Preisanstiege.</p>
-                    <p><strong>Buffetts Test für Investitionen:</strong> Wird das Unternehmen in 10 Jahren profitable sein? Generiert es wahren Wert?</p>
-                    <p style="margin-top: 15px;"><em>Das heißt nicht, dass Krypto nutzlos ist – aber für Buffett ist es nicht "Investieren", sondern "Spekulieren".</em></p>
-                `
-            },
-            default: {
-                header: 'Coach-Antwort',
-                content: `
-                    <p>Das ist eine großartige Frage!</p>
-                    <div class="quote">
-                        "The most important thing is to have a sound investment philosophy and stick with it."
-                        <div class="quote-source">— Warren Buffett</div>
-                    </div>
-                    <p>Obwohl ich hier nicht die exakte Antwort aus den Archives habe, hier der allgemeine Rat:</p>
-                    <ol style="margin-left: 20px; margin-top: 10px;">
-                        <li>Verstehe, was du kaufst</li>
-                        <li>Suche nach Unternehmen mit Wettbewerbsvorteil</li>
-                        <li>Bezahle einen fairen Preis (nicht zu viel)</li>
-                        <li>Denk langfristig</li>
-                    </ol>
-                    <p style="margin-top: 15px;">
-                        <strong>Tipp:</strong> Für noch tiefere Antworten schau die 
-                        <a href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank" style="color: #185FA5;">
-                        offiziellen Berkshire Letters
-                        </a> an.
-                    </p>
-                `
+        // Synthesize answer with Ollama
+        async function synthesizeWithOllama(question, citations) {
+            if (!ollamaAvailable || !citations || citations.length === 0) {
+                return null;
             }
-        };
 
-        function setQuestion(question) {
-            document.getElementById('questionInput').value = question;
-            askCoach();
+            try {
+                const citationText = citations
+                    .map((c, i) => `[${i+1}] "${c.text}" (${c.source}, ${c.year || 'N/A'})`)
+                    .join('\n\n');
+
+                const systemPrompt = `You are Berkshire Buddy, an intelligent investment coach based on Warren Buffett and Charlie Munger's wisdom.
+
+Your job: Synthesize a coherent, insightful answer from the provided citations.
+
+Instructions:
+1. Answer the question clearly and concisely (2-4 sentences)
+2. Reference citations using [1], [2], etc.
+3. Explain the principle, not just quote
+4. Be practical and actionable
+5. If unsure, be honest about limitations`;
+
+                const userPrompt = `Question: ${question}\n\nSupporting citations:\n${citationText}\n\nAnswer:`;
+
+                const response = await fetch(OLLAMA_BASE + '/api/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        model: OLLAMA_MODEL,
+                        prompt: systemPrompt + '\n\n' + userPrompt,
+                        stream: false,
+                        temperature: 0.7
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.response || null;
+                }
+            } catch (e) {
+                console.error('Ollama error:', e);
+            }
+            return null;
         }
 
         async function askCoach() {
@@ -549,99 +401,87 @@
             const responseHeader = document.getElementById('responseHeader');
             const responseContent = document.getElementById('responseContent');
 
-            // Show loading animation
             loading.classList.add('active');
             responseBox.classList.remove('active');
 
-            // Try API first, fallback to demo
-            if (apiAvailable) {
-                try {
-                    const response = await fetch(
-                        `${API_BASE}/search?q=${encodeURIComponent(input)}&limit=3`,
-                        { mode: 'cors' }
-                    );
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        displayAPIResponse(data, responseHeader, responseContent, responseBox, loading);
-                        return;
-                    }
-                } catch (e) {
-                    console.error('API error:', e);
-                    // Fall through to demo
-                }
+            if (!apiAvailable) {
+                loading.classList.remove('active');
+                responseHeader.textContent = 'Backend nicht erreichbar';
+                responseContent.innerHTML = '<p>Bitte stelle sicher, dass das Backend läuft.</p>';
+                responseBox.classList.add('active');
+                return;
             }
 
-            // Demo mode (no API)
-            displayDemoResponse(input, responseHeader, responseContent, responseBox, loading);
-        }
+            try {
+                // 1. Get citations from backend
+                const searchResponse = await fetch(
+                    `${API_BASE}/search?q=${encodeURIComponent(input)}&limit=3`,
+                    { mode: 'cors' }
+                );
 
-        function displayAPIResponse(data, header, content, box, loading) {
-            header.textContent = `Coach-Antwort zu: "${data.query}"`;
-            
-            let html = '';
-            
-            if (data.citations && data.citations.length > 0) {
-                html = '<div>';
+                if (!searchResponse.ok) {
+                    throw new Error('Search failed');
+                }
+
+                const data = await searchResponse.json();
+                responseHeader.textContent = `Coach-Antwort zu: "${input}"`;
+
+                if (!data.citations || data.citations.length === 0) {
+                    responseContent.innerHTML = '<p>Keine Treffer gefunden. Versuche eine andere Frage!</p>';
+                    loading.classList.remove('active');
+                    responseBox.classList.add('active');
+                    return;
+                }
+
+                let html = '';
+
+                // 2. Synthesize with Ollama if available
+                if (ollamaAvailable) {
+                    const synthesis = await synthesizeWithOllama(input, data.citations);
+                    if (synthesis) {
+                        html += `
+                            <div class="ai-synthesis">
+                                <strong>Coach's Analysis:</strong>
+                                <p>${synthesis.replace(/\n/g, '<br>')}</p>
+                            </div>
+                        `;
+                    }
+                }
+
+                // 3. Always show citations
+                html += '<div style="margin-top: 20px;"><strong>Supporting Citations:</strong></div>';
                 data.citations.forEach(citation => {
                     const year = citation.year ? ` (${citation.year})` : '';
                     html += `
                         <div class="citation">
-                            <div class="citation-text">${citation.text}</div>
+                            <div>${citation.text}</div>
                             <div class="citation-source">— ${citation.source}${year}</div>
                         </div>
                     `;
                 });
-                html += '</div>';
-            } else {
-                html = `<p>Keine direkten Treffer für "${data.query}" gefunden. Versuche eine andere Frage!</p>`;
-            }
-            
-            // Add API status indicator
-            html += '<div class="api-status connected">✓ Live von Berkshire Archives</div>';
-            
-            content.innerHTML = html;
-            
-            // Hide loading, show response
-            loading.classList.remove('active');
-            box.classList.add('active');
-            
-            setTimeout(() => {
-                box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
-        }
 
-        function displayDemoResponse(input, header, content, box, loading) {
-            const input_lower = input.toLowerCase();
-            let response = responses.default;
-
-            // Simple keyword matching
-            for (const [keyword, data] of Object.entries(responses)) {
-                if (keyword !== 'default' && input_lower.includes(keyword)) {
-                    response = data;
-                    break;
+                // 4. Status indicator
+                if (ollamaAvailable) {
+                    html += '<div class="api-status connected">✓ Intelligente Analyse (Ollama + Archives)</div>';
+                } else {
+                    html += '<div class="api-status connected">✓ Live von Berkshire Archives</div>';
                 }
+
+                responseContent.innerHTML = html;
+                loading.classList.remove('active');
+                responseBox.classList.add('active');
+
+                setTimeout(() => {
+                    responseBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+
+            } catch (e) {
+                console.error('Error:', e);
+                responseHeader.textContent = 'Fehler';
+                responseContent.innerHTML = '<p>Etwas ist schiefgelaufen. Versuche es später nochmal!</p>';
+                loading.classList.remove('active');
+                responseBox.classList.add('active');
             }
-
-            // Update response
-            header.textContent = response.header;
-            
-            let html = response.content;
-            
-            // Add API status indicator
-            if (!apiAvailable) {
-                html += '<div class="api-status">⚠ Demo-Modus (Backend nicht erreichbar)</div>';
-            }
-            
-            content.innerHTML = html;
-
-            // Hide loading, show response
-            loading.classList.remove('active');
-            box.classList.add('active');
-
-            setTimeout(() => {
-                box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
         }
 
         // Allow Enter key
@@ -651,12 +491,17 @@
             }
         });
 
-        // Show API status on page load
+        // Status on load
         window.addEventListener('load', () => {
             setTimeout(() => {
-                const status = apiAvailable ? 
-                    '✓ API verbunden' : 
-                    '⚠ Demo-Modus (Backend offline)';
+                let status = '';
+                if (apiAvailable && ollamaAvailable) {
+                    status = '✓ Full AI Mode (Backend + Ollama)';
+                } else if (apiAvailable) {
+                    status = '✓ Backend nur (Citation Mode)';
+                } else {
+                    status = '✗ Backend offline';
+                }
                 console.log('Berkshire Buddy Status:', status);
             }, 1000);
         });
