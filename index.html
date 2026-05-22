@@ -411,13 +411,15 @@
                 }
 
                 // 3. Always show citations
-                html += '<div style="margin-top: 20px;"><strong>Supporting Citations:</strong></div>';
+                html += '<div style="margin-top: 20px;"><strong>Quellenangaben:</strong></div>';
                 data.citations.forEach(citation => {
                     const year = citation.year ? ` (${citation.year})` : '';
+                    const letterLink = citation.letter_url ? 
+                        `<a href="${citation.letter_url}" target="_blank" style="color: #185FA5; text-decoration: none; margin-left: 10px;">↗️ Quelle</a>` : '';
                     html += `
                         <div class="citation">
                             <div>${citation.text}</div>
-                            <div class="citation-source">— ${citation.source}${year}</div>
+                            <div class="citation-source">— ${citation.source}${year}${letterLink}</div>
                         </div>
                     `;
                 });
