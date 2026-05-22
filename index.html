@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berkshire Buddy – Investment Coach</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f5f4f0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: white;
+            border: 0.5px solid #e0ddd6;
+            border-radius: 14px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            font-size: 0.95em;
+            color: #999;
+            font-style: italic;
+        }
+
+        .intro-box {
+            background: white;
+            border: 0.5px solid #e0ddd6;
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 30px;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .intro-box h2 {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .data-sources {
+            background: #fafaf8;
+            border-left: 4px solid #185FA5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        .data-sources h3 {
+            color: #185FA5;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+
+        .data-sources ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .data-sources li {
+            padding: 8px 0;
+            color: #333;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .data-sources li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #185FA5;
+        }
+
+        .coach-section {
+            background: white;
+            border: 0.5px solid #e0ddd6;
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .coach-section h2 {
+            color: #1a1a1a;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #e0ddd6;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #fafaf8;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #185FA5;
+            background: white;
+        }
+
+        button {
+            padding: 14px 30px;
+            background-color: #185FA5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0f3f7a;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .example-questions {
+            margin-top: 20px;
+        }
+
+        .example-questions p {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .example-btn {
+            display: inline-block;
+            padding: 10px 16px;
+            margin: 5px 5px 5px 0;
+            background: white;
+            border: 1px solid #e0ddd6;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+
+        .example-btn:hover {
+            background: #fafaf8;
+            border-color: #185FA5;
+            color: #185FA5;
+        }
+
+        .response-box {
+            background: #fafaf8;
+            border: 0.5px solid #e0ddd6;
+            border-radius: 14px;
+            padding: 25px;
+            margin-top: 20px;
+            display: none;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .response-box.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .response-header {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .quote {
+            background: white;
+            border-left: 4px solid #185FA5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-style: italic;
+            color: #333;
+        }
+
+        .quote-source {
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 8px;
+            font-style: normal;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #185FA5;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #666;
+            margin: 20px 0;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .dot {
+            animation: blink 1.4s infinite;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+            0%, 60%, 100% { opacity: 0.5; }
+            30% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .intro-box, .coach-section, .response-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Berkshire Buddy</h1>
+            <div class="subtitle">Dein Investment-Coach</div>
+            <div class="tagline">Powered by Warren Buffett & Charlie Munger</div>
+        </header>
+
+        <div class="intro-box">
+            <h2>Was ist Berkshire Buddy?</h2>
+            <p>
+                Berkshire Buddy ist dein persönlicher Investment-Coach, der auf echten Erkenntnissen von 
+                <strong>Warren Buffett</strong> und <strong>Charlie Munger</strong> basiert. 
+                Stelle eine Frage zu Investitionen, Vermögensaufbau oder Finanzstrategie – 
+                und Buddy antwortet mit direkten Zitaten und Lektionen aus Jahrzehnten bewährter Wisdom.
+            </p>
+
+            <div class="data-sources">
+                <h3>📚 Die Datenquellen</h3>
+                <ul>
+                    <li><strong>Berkshire Hathaway Shareholder Letters</strong> (1977–2024, 48 Jahre)</li>
+                    <li><strong>Berkshire Hathaway Shareholder Meetings</strong> (Q&A, wörtliche Zitate)</li>
+                    <li><strong>Klassische Investment-Konzepte</strong> von Graham, Dodd und anderen</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 20px;">
+                <strong>Für Investment-Anfänger:</strong> Keine Sorge – Berkshire Buddy erklärt auch komplexe Konzepte 
+                einfach und verständlich. Du brauchst keine Finanzausbildung, um vom Buddy zu profitieren.
+            </p>
+        </div>
+
+        <div class="coach-section">
+            <h2>Frag den Coach</h2>
+            <div class="input-group">
+                <input type="text" id="questionInput" placeholder="Deine Investmentfrage (z.B. 'Wie finde ich gute Aktien?')..." />
+                <button onclick="askCoach()">Fragen</button>
+            </div>
+
+            <div class="example-questions">
+                <p><strong>Beispielfragen:</strong></p>
+                <button class="example-btn" onclick="setQuestion('Wie erkenne ich eine gute Aktie?')">Wie erkenne ich eine gute Aktie?</button>
+                <button class="example-btn" onclick="setQuestion('Was ist Value Investing?')">Was ist Value Investing?</button>
+                <button class="example-btn" onclick="setQuestion('Wie vermeidet man Fehler beim Investieren?')">Wie vermeidet man Fehler?</button>
+                <button class="example-btn" onclick="setQuestion('Wie wichtig ist Geduld beim Investieren?')">Geduld beim Investieren?</button>
+                <button class="example-btn" onclick="setQuestion('Was würde Buffett zum Krypto sagen?')">Buffett zum Krypto?</button>
+            </div>
+
+            <div class="loading" id="loading">
+                <span class="dot">●</span><span class="dot">●</span><span class="dot">●</span>
+            </div>
+
+            <div class="response-box" id="responseBox">
+                <div class="response-header" id="responseHeader"></div>
+                <div id="responseContent"></div>
+            </div>
+        </div>
+
+        <footer>
+            © Markus O. Thalhamer | <a href="mailto:mthalhamer@thalhamer.com">mthalhamer@thalhamer.com</a><br>
+            <em>Privates Projekt. Keine Gewährleistung für die Korrektheit oder Vollständigkeit der Ergebnisse.</em>
+        </footer>
+    </div>
+
+    <script>
+        const responses = {
+            'gute aktie': {
+                header: 'Wie du gute Aktien erkennst',
+                content: `
+                    <p>Warren Buffett hat eine klare Philosophie für die Auswahl von Aktien:</p>
+                    <div class="quote">
+                        "Rule No. 1: Never lose money. Rule No. 2: Never forget rule No. 1."
+                        <div class="quote-source">— Warren Buffett</div>
+                    </div>
+                    <p><strong>Die 4 Key-Kriterien:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>Verständlichkeit:</strong> Du musst das Geschäftsmodell verstehen</li>
+                        <li><strong>Wettbewerbsvorteil:</strong> Das Unternehmen hat einen "Moat" (nachhaltigen Vorteil)</li>
+                        <li><strong>Management:</strong> Ehrliche, fähige Führung ist entscheidend</li>
+                        <li><strong>Bewertung:</strong> Du kaufst nur mit großem Sicherheitsabstand (Margin of Safety)</li>
+                    </ul>
+                    <p style="margin-top: 15px;">Das ist keine schnelle Strategie – es geht um langfristige, bewährte Unternehmen, nicht um Trends.</p>
+                `
+            },
+            'value investing': {
+                header: 'Value Investing erklärt',
+                content: `
+                    <p>Value Investing ist das Herzstück von Buffetts Strategie:</p>
+                    <div class="quote">
+                        "Price is what you pay; value is what you get."
+                        <div class="quote-source">— Warren Buffett</div>
+                    </div>
+                    <p><strong>Das Kernprinzip:</strong> Es gibt einen großen Unterschied zwischen dem Preis, den du zahlst, und dem wahren Wert eines Unternehmens.</p>
+                    <p><strong>Dein Ziel:</strong> Kaufe Unternehmen, die unter ihrem inneren Wert gehandelt werden – mit großem Sicherheitsabstand.</p>
+                    <p style="margin-top: 15px;">Das erfordert Geduld, Recherche und Disziplin – aber genau deshalb funktioniert es: Weil wenige bereit sind, diese Arbeit zu leisten.</p>
+                `
+            },
+            'fehler': {
+                header: 'Häufige Investment-Fehler (und wie du sie vermeidest)',
+                content: `
+                    <p>Charlie Munger sagt oft, dass es leichter ist, Fehler zu vermeiden als Erfolg vorherzusagen:</p>
+                    <div class="quote">
+                        "It is remarkable how much long-term advantage people can get from being faithful to boring old principles."
+                        <div class="quote-source">— Charlie Munger</div>
+                    </div>
+                    <p><strong>Top 5 Fehler:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Zu viel handeln (Trading statt Investing)</li>
+                        <li>Emotionale Entscheidungen treffen (Angst & Gier)</li>
+                        <li>Zu viel Schulden nutzen (Leverage ist gefährlich)</li>
+                        <li>Dinge kaufen, die du nicht verstehst</li>
+                        <li>Zu teure Gebühren zahlen (Kosten fressen Returns auf)</li>
+                    </ul>
+                    <p style="margin-top: 15px;">Die gute Nachricht: Diese Fehler kannst du alle vermeiden, wenn du bewusst handelst.</p>
+                `
+            },
+            'geduld': {
+                header: 'Die Macht der Geduld',
+                content: `
+                    <p>Buffett ist berühmt dafür, lange abzuwarten – und genau das ist eines seiner größten Erfolgsgeheimnis:</p>
+                    <div class="quote">
+                        "No matter how great the talent or effort, some things just take time. You can't produce a baby in one month by impregnating nine women."
+                        <div class="quote-source">— Warren Buffett</div>
+                    </div>
+                    <p><strong>Warum Geduld gewinnt:</strong></p>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Zinseszinseffekt braucht Zeit</li>
+                        <li>Gute Unternehmen wachsen über Jahrzehnte</li>
+                        <li>Du kannst Paniken ausnutzen, um günstig zu kaufen</li>
+                        <li>Weniger Steuern durch langfristige Haltung</li>
+                    </ul>
+                    <p style="margin-top: 15px;">Buffett hält manche Aktien seit 50+ Jahren. Das ist kein Zufall – das ist die Strategie.</p>
+                `
+            },
+            'krypto': {
+                header: 'Buffetts Sicht auf Kryptowährungen',
+                content: `
+                    <p>Buffett und Munger sind bekannt als Krypto-Skeptiker. Hier ihre Perspektive:</p>
+                    <div class="quote">
+                        "Whether it is tulips or any other investment, if you're paying a price for something that doesn't generate a return, you're betting on whether it will be higher in the future."
+                        <div class="quote-source">— Warren Buffett (sinngemäß zu Spekulationen)</div>
+                    </div>
+                    <p><strong>Das Kernproblem nach Buffett:</strong> Bitcoin und viele andere Kryptowährungen generieren keinen Cashflow – sie sind reine Spekulationen auf Preisanstiege.</p>
+                    <p><strong>Buffetts Test für Investitionen:</strong> Wird das Unternehmen in 10 Jahren profitable sein? Generiert es wahren Wert?</p>
+                    <p style="margin-top: 15px;"><em>Das heißt nicht, dass Krypto nutzlos ist – aber für Buffett ist es nicht "Investieren", sondern "Spekulieren".</em></p>
+                `
+            },
+            default: {
+                header: 'Coach-Antwort',
+                content: `
+                    <p>Das ist eine großartige Frage!</p>
+                    <div class="quote">
+                        "The most important thing is to have a sound investment philosophy and stick with it."
+                        <div class="quote-source">— Warren Buffett</div>
+                    </div>
+                    <p>Obwohl ich hier nicht die exakte Antwort aus den Archives habe, hier der allgemeine Rat:</p>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>Verstehe, was du kaufst</li>
+                        <li>Suche nach Unternehmen mit Wettbewerbsvorteil</li>
+                        <li>Bezahle einen fairen Preis (nicht zu viel)</li>
+                        <li>Denk langfristig</li>
+                    </ol>
+                    <p style="margin-top: 15px;">
+                        <strong>Tipp:</strong> Für noch tiefere Antworten schau die 
+                        <a href="https://www.berkshirehathaway.com/letters/letters.html" target="_blank" style="color: #185FA5;">
+                        offiziellen Berkshire Letters
+                        </a> an.
+                    </p>
+                `
+            }
+        };
+
+        function setQuestion(question) {
+            document.getElementById('questionInput').value = question;
+            askCoach();
+        }
+
+        function askCoach() {
+            const input = document.getElementById('questionInput').value.toLowerCase().trim();
+            
+            if (!input) {
+                alert('Bitte stell eine Frage!');
+                return;
+            }
+
+            const loading = document.getElementById('loading');
+            const responseBox = document.getElementById('responseBox');
+            const responseHeader = document.getElementById('responseHeader');
+            const responseContent = document.getElementById('responseContent');
+
+            // Show loading animation
+            loading.classList.add('active');
+            responseBox.classList.remove('active');
+
+            // Simulate API call delay (200-800ms)
+            setTimeout(() => {
+                let response = responses.default;
+
+                // Simple keyword matching
+                for (const [keyword, data] of Object.entries(responses)) {
+                    if (keyword !== 'default' && input.includes(keyword)) {
+                        response = data;
+                        break;
+                    }
+                }
+
+                // Update response
+                responseHeader.textContent = response.header;
+                responseContent.innerHTML = response.content;
+
+                // Hide loading, show response
+                loading.classList.remove('active');
+                responseBox.classList.add('active');
+
+                // Scroll to response
+                setTimeout(() => {
+                    responseBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }, 400);
+        }
+
+        // Allow Enter key
+        document.getElementById('questionInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                askCoach();
+            }
+        });
+    </script>
+</body>
+</html>
