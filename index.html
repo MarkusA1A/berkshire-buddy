@@ -264,7 +264,7 @@
         <header>
             <h1>🤖 Berkshire Buddy</h1>
             <div class="subtitle">Dein Investment-Coach</div>
-            <div class="tagline">Powered by Warren Buffett & Charlie Munger (+ Mistral AI via Ollama)</div>
+            <div class="tagline">Powered by Warren Buffett & Charlie Munger (+ Mistral AI auf Deutsch)</div>
         </header>
 
         <div class="intro-box">
@@ -410,15 +410,19 @@
                     `;
                 }
 
-                // 3. Always show citations
+                // 3. Always show citations with German translations
                 html += '<div style="margin-top: 20px;"><strong>Quellenangaben:</strong></div>';
                 data.citations.forEach(citation => {
                     const year = citation.year ? ` (${citation.year})` : '';
                     const letterLink = citation.letter_url ? 
                         `<a href="${citation.letter_url}" target="_blank" style="color: #185FA5; text-decoration: none; margin-left: 10px;">↗️ Quelle</a>` : '';
+                    
+                    // Show German translation if available, otherwise English
+                    const displayText = citation.text_de || citation.text;
+                    
                     html += `
                         <div class="citation">
-                            <div>${citation.text}</div>
+                            <div>${displayText}</div>
                             <div class="citation-source">— ${citation.source}${year}${letterLink}</div>
                         </div>
                     `;
