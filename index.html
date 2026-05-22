@@ -216,6 +216,42 @@
             margin-bottom: 15px;
         }
 
+        .citation {
+            background: white;
+            border-left: 4px solid #185FA5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid #e0ddd6;
+            line-height: 1.6;
+        }
+
+        .citation-source {
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .citation-text {
+            color: #333;
+        }
+
+        .api-status {
+            font-size: 0.85em;
+            color: #999;
+            margin-top: 10px;
+            padding: 8px;
+            background: #fafaf8;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .api-status.connected {
+            color: #185FA5;
+            background: #f0f7ff;
+        }
+
         .quote {
             background: white;
             border-left: 4px solid #185FA5;
@@ -362,6 +398,27 @@
     </div>
 
     <script>
+        // API Configuration
+        const API_BASE = 'http://localhost:8000'; // Change for production
+        let apiAvailable = false;
+
+        // Check if API is available on page load
+        async function checkAPI() {
+            try {
+                const response = await fetch(API_BASE + '/health', { mode: 'cors' });
+                if (response.ok) {
+                    apiAvailable = true;
+                    console.log('✓ API connected');
+                }
+            } catch (e) {
+                apiAvailable = false;
+                console.log('API offline - using demo mode');
+            }
+        }
+
+        checkAPI();
+
+        // Demo responses (fallback)
         const responses = {
             'gute aktie': {
                 header: 'Wie du gute Aktien erkennst',
@@ -474,8 +531,8 @@
             askCoach();
         }
 
-        function askCoach() {
-            const input = document.getElementById('questionInput').value.toLowerCase().trim();
+        async function askCoach() {
+            const input = document.getElementById('questionInput').value.trim();
             
             if (!input) {
                 alert('Bitte stell eine Frage!');
@@ -491,31 +548,95 @@
             loading.classList.add('active');
             responseBox.classList.remove('active');
 
-            // Simulate API call delay (200-800ms)
-            setTimeout(() => {
-                let response = responses.default;
-
-                // Simple keyword matching
-                for (const [keyword, data] of Object.entries(responses)) {
-                    if (keyword !== 'default' && input.includes(keyword)) {
-                        response = data;
-                        break;
+            // Try API first, fallback to demo
+            if (apiAvailable) {
+                try {
+                    const response = await fetch(
+                        `${API_BASE}/search?q=${encodeURIComponent(input)}&limit=3`,
+                        { mode: 'cors' }
+                    );
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        displayAPIResponse(data, responseHeader, responseContent, responseBox, loading);
+                        return;
                     }
+                } catch (e) {
+                    console.error('API error:', e);
+                    // Fall through to demo
                 }
+            }
 
-                // Update response
-                responseHeader.textContent = response.header;
-                responseContent.innerHTML = response.content;
+            // Demo mode (no API)
+            displayDemoResponse(input, responseHeader, responseContent, responseBox, loading);
+        }
 
-                // Hide loading, show response
-                loading.classList.remove('active');
-                responseBox.classList.add('active');
+        function displayAPIResponse(data, header, content, box, loading) {
+            header.textContent = `Coach-Antwort zu: "${data.query}"`;
+            
+            let html = '';
+            
+            if (data.citations && data.citations.length > 0) {
+                html = '<div>';
+                data.citations.forEach(citation => {
+                    const year = citation.year ? ` (${citation.year})` : '';
+                    html += `
+                        <div class="citation">
+                            <div class="citation-text">${citation.text}</div>
+                            <div class="citation-source">— ${citation.source}${year}</div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            } else {
+                html = `<p>Keine direkten Treffer für "${data.query}" gefunden. Versuche eine andere Frage!</p>`;
+            }
+            
+            // Add API status indicator
+            html += '<div class="api-status connected">✓ Live von Berkshire Archives</div>';
+            
+            content.innerHTML = html;
+            
+            // Hide loading, show response
+            loading.classList.remove('active');
+            box.classList.add('active');
+            
+            setTimeout(() => {
+                box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
+        }
 
-                // Scroll to response
-                setTimeout(() => {
-                    responseBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
-            }, 400);
+        function displayDemoResponse(input, header, content, box, loading) {
+            const input_lower = input.toLowerCase();
+            let response = responses.default;
+
+            // Simple keyword matching
+            for (const [keyword, data] of Object.entries(responses)) {
+                if (keyword !== 'default' && input_lower.includes(keyword)) {
+                    response = data;
+                    break;
+                }
+            }
+
+            // Update response
+            header.textContent = response.header;
+            
+            let html = response.content;
+            
+            // Add API status indicator
+            if (!apiAvailable) {
+                html += '<div class="api-status">⚠ Demo-Modus (Backend nicht erreichbar)</div>';
+            }
+            
+            content.innerHTML = html;
+
+            // Hide loading, show response
+            loading.classList.remove('active');
+            box.classList.add('active');
+
+            setTimeout(() => {
+                box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 100);
         }
 
         // Allow Enter key
@@ -523,6 +644,16 @@
             if (e.key === 'Enter') {
                 askCoach();
             }
+        });
+
+        // Show API status on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const status = apiAvailable ? 
+                    '✓ API verbunden' : 
+                    '⚠ Demo-Modus (Backend offline)';
+                console.log('Berkshire Buddy Status:', status);
+            }, 1000);
         });
     </script>
 </body>
