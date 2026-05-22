@@ -264,7 +264,7 @@
         <header>
             <h1>🤖 Berkshire Buddy</h1>
             <div class="subtitle">Dein Investment-Coach</div>
-            <div class="tagline">Powered by Warren Buffett & Charlie Munger (+ Mistral AI)</div>
+            <div class="tagline">Powered by Warren Buffett & Charlie Munger (+ Mistral AI via Ollama)</div>
         </header>
 
         <div class="intro-box">
@@ -306,12 +306,9 @@
     <script>
         // API Configuration
         const API_BASE = 'https://berkshire-buddy-backend.vercel.app';
-        const OLLAMA_BASE = 'http://localhost:11434';
-        const OLLAMA_MODEL = 'mistral:latest';
         let apiAvailable = false;
-        let ollamaAvailable = false;
 
-        // Check APIs on page load
+        // Check API on page load
         async function checkAPI() {
             try {
                 const response = await fetch(API_BASE + '/health', { mode: 'cors' });
@@ -324,66 +321,31 @@
             }
         }
 
-        async function checkOllama() {
-            try {
-                const response = await fetch(OLLAMA_BASE + '/api/tags', { 
-                    method: 'GET',
-                    mode: 'cors',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                if (response.ok) {
-                    ollamaAvailable = true;
-                    console.log('✓ Ollama connected');
-                }
-            } catch (e) {
-                console.log('✗ Ollama offline (local synthesis unavailable)');
-            }
-        }
-
         checkAPI();
-        checkOllama();
 
-        // Synthesize answer with Ollama
-        async function synthesizeWithOllama(question, citations) {
-            if (!ollamaAvailable || !citations || citations.length === 0) {
+        // Synthesize answer via backend
+        async function synthesizeAnswer(question, citations) {
+            if (!apiAvailable || !citations || citations.length === 0) {
                 return null;
             }
 
             try {
-                const citationText = citations
-                    .map((c, i) => `[${i+1}] "${c.text}" (${c.source}, ${c.year || 'N/A'})`)
-                    .join('\n\n');
-
-                const systemPrompt = `You are Berkshire Buddy, an intelligent investment coach based on Warren Buffett and Charlie Munger's wisdom.
-
-Your job: Synthesize a coherent, insightful answer from the provided citations.
-
-Instructions:
-1. Answer the question clearly and concisely (2-4 sentences)
-2. Reference citations using [1], [2], etc.
-3. Explain the principle, not just quote
-4. Be practical and actionable
-5. If unsure, be honest about limitations`;
-
-                const userPrompt = `Question: ${question}\n\nSupporting citations:\n${citationText}\n\nAnswer:`;
-
-                const response = await fetch(OLLAMA_BASE + '/api/generate', {
+                const response = await fetch(API_BASE + '/synthesis', {
                     method: 'POST',
+                    mode: 'cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        model: OLLAMA_MODEL,
-                        prompt: systemPrompt + '\n\n' + userPrompt,
-                        stream: false,
-                        temperature: 0.7
+                        question: question,
+                        citations: citations
                     })
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    return data.response || null;
+                    return data.synthesis || null;
                 }
             } catch (e) {
-                console.error('Ollama error:', e);
+                console.error('Synthesis error:', e);
             }
             return null;
         }
@@ -435,17 +397,15 @@ Instructions:
 
                 let html = '';
 
-                // 2. Synthesize with Ollama if available
-                if (ollamaAvailable) {
-                    const synthesis = await synthesizeWithOllama(input, data.citations);
-                    if (synthesis) {
-                        html += `
-                            <div class="ai-synthesis">
-                                <strong>Coach's Analysis:</strong>
-                                <p>${synthesis.replace(/\n/g, '<br>')}</p>
-                            </div>
-                        `;
-                    }
+                // 2. Synthesize answer via backend
+                const synthesis = await synthesizeAnswer(input, data.citations);
+                if (synthesis) {
+                    html += `
+                        <div class="ai-synthesis">
+                            <strong>Coach's Analysis:</strong>
+                            <p>${synthesis.replace(/\n/g, '<br>')}</p>
+                        </div>
+                    `;
                 }
 
                 // 3. Always show citations
@@ -461,11 +421,7 @@ Instructions:
                 });
 
                 // 4. Status indicator
-                if (ollamaAvailable) {
-                    html += '<div class="api-status connected">✓ Intelligente Analyse (Ollama + Archives)</div>';
-                } else {
-                    html += '<div class="api-status connected">✓ Live von Berkshire Archives</div>';
-                }
+                html += '<div class="api-status connected">✓ Intelligente Analyse (AI + Archives)</div>';
 
                 responseContent.innerHTML = html;
                 loading.classList.remove('active');
@@ -494,14 +450,9 @@ Instructions:
         // Status on load
         window.addEventListener('load', () => {
             setTimeout(() => {
-                let status = '';
-                if (apiAvailable && ollamaAvailable) {
-                    status = '✓ Full AI Mode (Backend + Ollama)';
-                } else if (apiAvailable) {
-                    status = '✓ Backend nur (Citation Mode)';
-                } else {
-                    status = '✗ Backend offline';
-                }
+                const status = apiAvailable ? 
+                    '✓ Full AI Mode (Backend + Ollama)' : 
+                    '✗ Backend offline';
                 console.log('Berkshire Buddy Status:', status);
             }, 1000);
         });
